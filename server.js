@@ -30,7 +30,11 @@ const s3 = new AWS.S3();
 app.use(express.json());
 
 app.post("/video2gif", (req, res) => {
-  try {
+  res.json({
+    message: "GIF created",
+  });
+
+  /*   try {
     const { url, start, duration, fps } = req.body;
     let inputDuration;
 
@@ -119,7 +123,7 @@ app.post("/video2gif", (req, res) => {
     }
   } catch (error) {
     res.status(400).json({ message: error });
-  }
+  } */
 });
 
 app.listen(5000, () => {
