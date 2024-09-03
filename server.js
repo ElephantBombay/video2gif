@@ -30,9 +30,9 @@ const s3 = new AWS.S3();
 app.use(express.json());
 
 app.post("/video2gif", (req, res) => {
-  res.json({
-    message: "GIF created",
-  });
+  // res.json({
+  //   message: "GIF created",
+  // });
 
   try {
     const { url, start, duration, fps } = req.body;
@@ -76,43 +76,43 @@ app.post("/video2gif", (req, res) => {
         .inputOptions([`-ss ${start}`]) // Add this line to set the start time directly in the input options
         .input("https://vidfunnlz.s3.amazonaws.com/statics/play-button.png")
         .input("https://vidfunnlz.s3.amazonaws.com/statics/play-button.png")
-        .complexFilter([
-          {
-            inputs: "0:v",
-            filter: "scale",
-            options: "-1:300",
-            outputs: "video",
-          },
-          {
-            inputs: "1:v",
-            filter: "scale",
-            options: "75:75",
-            outputs: "play",
-          },
-          {
-            inputs: ["video", "play"],
-            filter: "overlay",
-            options: {
-              x: "(main_w-overlay_w)/2", // Center horizontally
-              y: "(main_h-overlay_h)/2", // Center vertically
-            },
-            // outputs: "video-play",
-          },
-          // {
-          //   inputs: "video-play",
-          //   filter: "drawtext",
-          //   options: {
-          //     text: `35 secs`,
-          //     fontsize: 14,
-          //     fontcolor: "white",
-          //     fontfile:
-          //       "https://vidfunnlz.s3.amazonaws.com/statics/OpenSans-Bold.ttf",
-          //     x: 10, // 10 pixels from the left
-          //     y: "(main_h-text_h-10)", // 10 pixels from the bottom
-          //   },
-          //   outputs: "video-play-text",
-          // },
-        ])
+        // .complexFilter([
+        //   {
+        //     inputs: "0:v",
+        //     filter: "scale",
+        //     options: "-1:300",
+        //     outputs: "video",
+        //   },
+        //   {
+        //     inputs: "1:v",
+        //     filter: "scale",
+        //     options: "75:75",
+        //     outputs: "play",
+        //   },
+        //   {
+        //     inputs: ["video", "play"],
+        //     filter: "overlay",
+        //     options: {
+        //       x: "(main_w-overlay_w)/2", // Center horizontally
+        //       y: "(main_h-overlay_h)/2", // Center vertically
+        //     },
+        //     // outputs: "video-play",
+        //   },
+        //   // {
+        //   //   inputs: "video-play",
+        //   //   filter: "drawtext",
+        //   //   options: {
+        //   //     text: `35 secs`,
+        //   //     fontsize: 14,
+        //   //     fontcolor: "white",
+        //   //     fontfile:
+        //   //       "https://vidfunnlz.s3.amazonaws.com/statics/OpenSans-Bold.ttf",
+        //   //     x: 10, // 10 pixels from the left
+        //   //     y: "(main_h-text_h-10)", // 10 pixels from the bottom
+        //   //   },
+        //   //   outputs: "video-play-text",
+        //   // },
+        // ])
 
         .setDuration(duration)
         .fps(fps)
