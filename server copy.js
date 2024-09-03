@@ -49,13 +49,13 @@ app.post("/video2gif", (req, res) => {
       };
 
       /// Fetch input video duration
-      // ffmpeg.ffprobe(url, function (err, metadata) {
-      //   if (err) {
-      //     console.error("Error fetching video metadata:", err);
-      //   } else {
-      //     inputDuration = metadata.format.duration;
-      //   }
-      // });
+      ffmpeg.ffprobe(url, function (err, metadata) {
+        if (err) {
+          console.error("Error fetching video metadata:", err);
+        } else {
+          inputDuration = metadata.format.duration;
+        }
+      });
 
       s3.upload(params, function (err, data) {
         if (err) {
@@ -68,7 +68,7 @@ app.post("/video2gif", (req, res) => {
         res.json({
           message: "GIF created",
           url: data.Location,
-          // input_duration: inputDuration,
+          input_duration: inputDuration,
         });
       });
 
